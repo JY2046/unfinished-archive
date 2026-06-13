@@ -15,16 +15,31 @@ const linkLabels: Record<Language, string> = {
   zh: '打开',
 };
 
+const featureImages: Record<string, string> = {
+  creation: 'assets/reference-crops/feature-creation.png',
+  signals: 'assets/reference-crops/feature-ai.png',
+  audio: 'assets/reference-crops/feature-audio.png',
+};
+
 export function FeatureIndex({ language }: FeatureIndexProps) {
   return (
-    <section aria-labelledby="feature-index-title">
-      <h2 id="feature-index-title">{headings[language]}</h2>
+    <section className="feature-index" aria-labelledby="feature-index-title">
+      <h2 id="feature-index-title" className="visually-hidden">
+        {headings[language]}
+      </h2>
       {features.map((feature) => (
         <article key={feature.id}>
-          <p>{feature.number}</p>
-          <p>{feature.title[language]}</p>
-          <p>{feature.summary[language]}</p>
-          <a href={feature.href}>
+          <div>
+            <p className="issue-number">{feature.number}</p>
+            <p className="meta-label">Feature</p>
+            <h3>{feature.title[language]}</h3>
+            <p>{feature.summary[language]}</p>
+            <a href={feature.href} aria-label={`${linkLabels[language]} ${feature.title[language]}`}>
+              →
+            </a>
+          </div>
+          <img src={featureImages[feature.id]} alt="" aria-hidden="true" />
+          <a className="feature-index__text-link" href={feature.href}>
             {linkLabels[language]} {feature.title[language]}
           </a>
         </article>

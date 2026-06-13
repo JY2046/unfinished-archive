@@ -18,5 +18,5 @@ test('language toggle switches visible section headings', async ({ page }) => {
   await page.getByRole('button', { name: '中文' }).click();
 
   await expect(page.getByRole('heading', { name: '精选档案' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: '声音笔记' })).toBeVisible();
+  await expect(page.locator('#audio').getByRole('heading', { name: '声音笔记' })).toBeVisible();
 });

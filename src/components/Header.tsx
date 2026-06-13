@@ -26,8 +26,10 @@ export function Header({ language, onToggleLanguage }: HeaderProps) {
           </a>
         ))}
       </nav>
-      <button type="button" onClick={onToggleLanguage}>
-        {language === 'en' ? '中文' : 'EN'}
+      <button type="button" onClick={onToggleLanguage} aria-label={language === 'en' ? '中文' : 'EN'}>
+        <span aria-hidden={language !== 'en'}>EN</span>
+        <span aria-hidden="true"> / </span>
+        <span aria-hidden={language !== 'zh'}>中文</span>
       </button>
     </header>
   );

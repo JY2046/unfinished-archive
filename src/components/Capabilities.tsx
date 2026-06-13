@@ -12,8 +12,11 @@ const headings: Record<Language, string> = {
 
 export function Capabilities({ language }: CapabilitiesProps) {
   return (
-    <section aria-labelledby="capabilities-title">
-      <h2 id="capabilities-title">{headings[language]}</h2>
+    <section className="capabilities" aria-labelledby="capabilities-title">
+      <div className="section-bar">
+        <h2 id="capabilities-title">{headings[language]}</h2>
+        <span>能力图谱</span>
+      </div>
       {capabilities.map((capability) => (
         <article key={capability.id}>
           <h3>{capability.title[language]}</h3>

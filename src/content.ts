@@ -246,22 +246,58 @@ export const capabilities: Capability[] = [
 
 export const roamingNotes: RoamingNote[] = [
   {
-    id: 'cities',
-    place: { en: 'Cities collected in motion', zh: '移动中收藏的城市' },
+    id: 'kyoto',
+    place: { en: 'Kyoto, Japan', zh: '京都，日本' },
     caption: {
-      en: 'A quiet record of places, textures, and small decisions of taste.',
-      zh: '记录地点、质感和那些微小的审美判断。',
+      en: 'A quiet street and slow mornings.',
+      zh: '安静的街道和缓慢的早晨。',
     },
-    meta: 'Roaming / Field notes',
+    meta: 'Apr 2024',
   },
   {
-    id: 'future-map',
-    place: { en: 'Map coming later', zh: '地图稍后补充' },
+    id: 'osaka',
+    place: { en: 'Tadao Ando Museum, Osaka', zh: '安藤忠雄美术馆，大阪' },
     caption: {
-      en: 'A Polarsteps or Polarstrip link can live here once the route is mapped.',
-      zh: '等路线整理好后，这里可以放 Polarsteps 或 Polarstrip 链接。',
+      en: 'Light, space, and intention.',
+      zh: '光、空间与意图。',
     },
-    meta: 'Travel archive',
+    meta: 'Mar 2024',
+  },
+  {
+    id: 'coast',
+    place: { en: 'Setouchi Coast', zh: '濑户内海岸' },
+    caption: {
+      en: 'Where land meets pause.',
+      zh: '陆地与停顿相遇的地方。',
+    },
+    meta: 'Feb 2024',
+  },
+  {
+    id: 'lisbon',
+    place: { en: 'Lisbon, Portugal', zh: '里斯本，葡萄牙' },
+    caption: {
+      en: 'Small city, big feeling.',
+      zh: '小城，大感受。',
+    },
+    meta: 'Nov 2023',
+  },
+  {
+    id: 'bali',
+    place: { en: 'Bali, Indonesia', zh: '巴厘岛，印度尼西亚' },
+    caption: {
+      en: 'Nature resets what matters.',
+      zh: '自然重新校准重要之事。',
+    },
+    meta: 'Sep 2023',
+  },
+  {
+    id: 'seoul',
+    place: { en: 'Seoul, Korea', zh: '首尔，韩国' },
+    caption: {
+      en: 'Energy, speed, and good people.',
+      zh: '能量、速度和好的人。',
+    },
+    meta: 'Jul 2023',
   },
 ];
 

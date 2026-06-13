@@ -27,6 +27,14 @@ const linkVerbs: Record<Language, string> = {
   zh: '打开',
 };
 
+const fileImages: Record<string, string> = {
+  'short-video': 'assets/reference-crops/file-public.png',
+  'ai-news-podcast': 'assets/reference-crops/file-ai.png',
+  'growth-podcast': 'assets/reference-crops/file-growth.png',
+  'product-note': 'assets/reference-crops/file-product.png',
+  'roaming-note': 'assets/reference-crops/file-life.png',
+};
+
 export function SelectedFiles({ language }: SelectedFilesProps) {
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
   const visibleFiles =
@@ -35,8 +43,11 @@ export function SelectedFiles({ language }: SelectedFilesProps) {
       : selectedFiles.filter((file) => file.category === activeFilter);
 
   return (
-    <section id="files" aria-labelledby="files-title">
-      <h2 id="files-title">{headings[language]}</h2>
+    <section id="files" className="selected-files" aria-labelledby="files-title">
+      <div className="section-bar">
+        <h2 id="files-title">{headings[language]}</h2>
+        <span>精选档案</span>
+      </div>
       <div className="filter-bar" aria-label="Selected file filters">
         {filters.map((filter) => (
           <button
@@ -55,12 +66,13 @@ export function SelectedFiles({ language }: SelectedFilesProps) {
 
         return (
           <article key={file.id}>
-            <p>{file.number}</p>
+            <p className="issue-number">{file.number}</p>
+            <img src={fileImages[file.id]} alt="" aria-hidden="true" />
+            <p className="meta-label">{file.platform}</p>
             <h3>{title}</h3>
             <p>{file.meaning[language]}</p>
-            <p>{file.platform}</p>
             <a href={file.href} aria-label={linkLabel}>
-              {linkLabel}
+              →
             </a>
           </article>
         );

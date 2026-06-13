@@ -12,13 +12,17 @@ const headings: Record<Language, string> = {
 
 export function Signals({ language }: SignalsProps) {
   return (
-    <section id="signals" aria-labelledby="signals-title">
-      <h2 id="signals-title">{headings[language]}</h2>
+    <section id="signals" className="signals" aria-labelledby="signals-title">
+      <div className="section-bar">
+        <h2 id="signals-title">{headings[language]}</h2>
+        <span>信号</span>
+      </div>
       {signals.map((signal) => (
         <article key={signal.id}>
-          <p>{signal.number}</p>
+          <p aria-hidden="true">“</p>
           <h3>{signal.title[language]}</h3>
           <p>{signal.body[language]}</p>
+          <span>{signal.number}</span>
         </article>
       ))}
     </section>
