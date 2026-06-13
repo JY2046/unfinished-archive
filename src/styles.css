@@ -177,16 +177,21 @@ nav a {
 }
 
 .cover {
-  min-height: 510px;
+  min-height: 500px;
   display: grid;
-  grid-template-columns: 38% 20% 9% 25%;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.18fr) minmax(150px, 0.34fr) minmax(88px, 0.18fr) minmax(260px, 0.58fr);
+  grid-template-areas:
+    "title title issue image"
+    ". copy issue image";
+  column-gap: clamp(20px, 2.2vw, 34px);
+  row-gap: 12px;
   align-items: start;
   padding: 42px 10px 36px;
   position: relative;
 }
 
 .cover__title {
+  grid-area: title;
   align-self: center;
   min-width: 0;
 }
@@ -220,9 +225,11 @@ nav a {
 }
 
 .cover__copy {
-  padding-top: 112px;
+  grid-area: copy;
+  max-width: 320px;
   display: grid;
-  gap: 34px;
+  gap: 18px;
+  align-self: end;
   color: var(--soft-ink);
   font-size: 13px;
   line-height: 1.58;
@@ -230,10 +237,11 @@ nav a {
 
 .cover__copy p {
   margin: 0;
-  max-width: 190px;
+  max-width: 320px;
 }
 
 .cover__issue {
+  grid-area: issue;
   padding-top: 18px;
   color: var(--green);
 }
@@ -261,6 +269,7 @@ nav a {
 }
 
 .cover__image {
+  grid-area: image;
   align-self: stretch;
   min-height: 410px;
   margin: 0;
@@ -306,6 +315,19 @@ nav a {
   text-align: center;
   text-transform: uppercase;
   transform: rotate(-18deg);
+}
+
+@media (min-width: 1100px) {
+  .cover__copy {
+    grid-area: auto;
+    grid-column: 2 / 4;
+    grid-row: 1;
+    width: 280px;
+    justify-self: end;
+    align-self: start;
+    margin-top: 330px;
+    margin-right: 68px;
+  }
 }
 
 .feature-index {
@@ -728,6 +750,9 @@ footer::after {
 
   .cover {
     min-height: auto;
+    grid-template-areas:
+      "title"
+      "image";
     padding: 36px 0;
   }
 
@@ -776,11 +801,11 @@ footer::after {
 
 @media (max-width: 560px) {
   .cover h1 {
-    font-size: clamp(64px, 21vw, 88px);
+    font-size: clamp(54px, 17vw, 68px);
   }
 
   .cover__alternate {
-    font-size: 46px;
+    font-size: 40px;
   }
 
   .cover__tagline {

@@ -3,6 +3,9 @@
 - Implementation screenshot: `/Users/lily/Documents/个人相关/docs/assets/qa/unfinished-archive-desktop-864.png`
 - Mobile screenshot: `/Users/lily/Documents/个人相关/docs/assets/qa/unfinished-archive-mobile-390.png`
 - Full-view comparison evidence: `/Users/lily/Documents/个人相关/docs/assets/qa/unfinished-archive-comparison.png`
+- Wide hero regression evidence: `/Users/lily/Documents/个人相关/docs/assets/qa/hero-responsive-wide.png`
+- Reference-width hero regression evidence: `/Users/lily/Documents/个人相关/docs/assets/qa/hero-responsive-reference.png`
+- Mobile hero regression evidence: `/Users/lily/Documents/个人相关/docs/assets/qa/hero-responsive-mobile.png`
 - Viewport: desktop 864 x 1821, mobile 390 x 1200
 - State: default English homepage
 
@@ -23,6 +26,9 @@
 - Fixed asset paths for GitHub Pages base routing.
 - Fixed horizontal overflow at the 864px reference viewport.
 - Fixed e2e language-toggle selector ambiguity caused by duplicate Chinese headings.
+- Fixed wide-display Hero overlap by moving the small intro copy into a separate responsive grid area below the masthead.
+- Reduced mobile Hero title sizing so the word "Unfinished" no longer creates horizontal scroll.
+- Repositioned the Hero intro copy on wide displays to fill the right-center negative space without overlapping the masthead.
 
 **Follow-Up Polish**
 - P3: Replace cropped reference imagery with original creator-owned photos and podcast art when available.
