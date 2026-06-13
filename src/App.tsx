@@ -40,7 +40,9 @@ export default function App() {
             <h3>{file.title.en}</h3>
             <p>{file.meaning.en}</p>
             <p>{file.platform}</p>
-            <a href={file.href}>Open file</a>
+            <a href={file.href} aria-label={`Open ${file.title.en}`}>
+              Open file
+            </a>
           </article>
         ))}
       </section>
@@ -63,7 +65,9 @@ export default function App() {
             <h3>{audio.title.en}</h3>
             <p>{audio.positioning.en}</p>
             <p>{audio.recommendedEpisode.en}</p>
-            <a href={audio.href}>Listen</a>
+            <a href={audio.href} aria-label={`Listen to ${audio.title.en}`}>
+              Listen
+            </a>
           </article>
         ))}
       </section>
