@@ -8,14 +8,23 @@ const readInitialLanguage = (): Language => {
     return 'en';
   }
 
-  return window.localStorage.getItem(STORAGE_KEY) === 'zh' ? 'zh' : 'en';
+  try {
+    return window.localStorage.getItem(STORAGE_KEY) === 'zh' ? 'zh' : 'en';
+  } catch {
+    return 'en';
+  }
 };
 
 export const useLanguage = () => {
   const [language, setLanguage] = useState<Language>(readInitialLanguage);
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, language);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, language);
+    } catch {
+      // Keep the hook usable when browser storage is unavailable.
+    }
+
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
   }, [language]);
 
