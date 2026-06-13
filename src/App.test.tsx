@@ -52,3 +52,15 @@ test('renders navigation links for the archive sections', () => {
   expect(screen.getByRole('link', { name: 'Roaming' })).toHaveAttribute('href', '#roaming');
   expect(screen.getByRole('link', { name: 'Connect' })).toHaveAttribute('href', '#connect');
 });
+
+test('filters selected files by category', async () => {
+  const user = userEvent.setup();
+
+  render(<App />);
+
+  await user.click(screen.getByRole('button', { name: 'Audio' }));
+
+  expect(screen.getByText('AI News Podcast')).toBeVisible();
+  expect(screen.getByText('Personal Growth Podcast')).toBeVisible();
+  expect(screen.queryByText('Short Video Experiments')).not.toBeInTheDocument();
+});

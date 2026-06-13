@@ -243,6 +243,28 @@ footer a {
   align-items: start;
 }
 
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: -10px 0 30px;
+}
+
+.filter-bar button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.filter-bar button[aria-pressed="true"] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
 #files article h3,
 #files article p,
 #files article a,
