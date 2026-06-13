@@ -2,6 +2,7 @@ import { afterEach, beforeEach, expect, test } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
+import { socialLinks } from './content';
 
 const STORAGE_KEY = 'unfinished-archive-language';
 
@@ -63,4 +64,14 @@ test('filters selected files by category', async () => {
   expect(screen.getByText('AI News Podcast')).toBeVisible();
   expect(screen.getByText('Personal Growth Podcast')).toBeVisible();
   expect(screen.queryByText('Short Video Experiments')).not.toBeInTheDocument();
+});
+
+test('does not publish placeholder contact links', () => {
+  expect(socialLinks).toHaveLength(1);
+  expect(socialLinks).toEqual([
+    { id: 'github', label: 'GitHub', href: 'https://github.com/JY2046/unfinished-archive' },
+  ]);
+  expect(socialLinks.map((link) => link.href)).not.toContain('#');
+  expect(socialLinks.map((link) => link.href)).not.toContain('mailto:hello@example.com');
+  expect(socialLinks.map((link) => link.href)).not.toContain('https://www.linkedin.com/');
 });

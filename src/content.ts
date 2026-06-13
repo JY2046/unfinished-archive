@@ -266,11 +266,5 @@ export const roamingNotes: RoamingNote[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
-  { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/' },
   { id: 'github', label: 'GitHub', href: 'https://github.com/JY2046/unfinished-archive' },
-  { id: 'xiaohongshu', label: 'Xiaohongshu', href: '#' },
-  { id: 'douyin', label: 'Douyin', href: '#' },
-  { id: 'podcast', label: 'Podcast', href: '#' },
-  { id: 'email', label: 'Email', href: 'mailto:hello@example.com' },
-  { id: 'resume', label: 'Resume', href: '#' },
 ];
