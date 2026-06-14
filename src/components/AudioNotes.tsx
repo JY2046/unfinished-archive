@@ -19,7 +19,12 @@ const audioAssets: Record<string, { cover: string; wave: string; duration: strin
   'ai-news-one': { cover: 'AI\nFRONTIERS', wave: 'assets/reference-crops/wave-ai.png', duration: '52:18', date: 'May 26, 2024' },
   'ai-news-two': { cover: 'MAKER\nDIALOGUES', wave: 'assets/reference-crops/wave-maker.png', duration: '41:27', date: 'Apr 05, 2024' },
   growth: { cover: 'GROWTH\nNOTES', wave: 'assets/reference-crops/wave-growth.png', duration: '48:03', date: 'Apr 18, 2024' },
+  'wave-ai': { cover: 'AI\nFRONTIERS', wave: 'assets/reference-crops/wave-ai.png', duration: '52:18', date: 'May 26, 2024' },
+  'wave-maker': { cover: 'MAKER\nDIALOGUES', wave: 'assets/reference-crops/wave-maker.png', duration: '41:27', date: 'Apr 05, 2024' },
+  'wave-growth': { cover: 'GROWTH\nNOTES', wave: 'assets/reference-crops/wave-growth.png', duration: '48:03', date: 'Apr 18, 2024' },
 };
+
+const fallbackAudioAsset = audioAssets['wave-ai'];
 
 export function AudioNotes({ language }: AudioNotesProps) {
   return (
@@ -31,11 +36,14 @@ export function AudioNotes({ language }: AudioNotesProps) {
       {audioNotes.map((audio) => {
         const title = audio.title[language];
         const linkLabel = `${linkVerbs[language]} ${title}`;
-        const asset = audioAssets[audio.id];
+        const asset = audioAssets[audio.waveKey ?? audio.id] ?? audioAssets[audio.id] ?? fallbackAudioAsset;
+        const cover = audio.coverLabel?.replaceAll(' ', '\n') ?? asset.cover;
+        const appleLink = audio.links?.apple ?? audio.href;
+        const spotifyLink = audio.links?.spotify ?? audio.href;
 
         return (
           <article key={audio.id}>
-            <div className="audio-cover">{asset.cover}</div>
+            <div className="audio-cover">{cover}</div>
             <button type="button" aria-label={linkLabel}>▶</button>
             <div className="audio-main">
               <h3>{title}</h3>
@@ -43,14 +51,14 @@ export function AudioNotes({ language }: AudioNotesProps) {
               <img src={asset.wave} alt="" aria-hidden="true" />
             </div>
             <p className="audio-meta">
-              <span>{asset.duration}</span>
-              <span>{asset.date}</span>
+              <span>{audio.duration ?? asset.duration}</span>
+              <span>{audio.published ?? asset.date}</span>
             </p>
             <div className="audio-links">
-              <a href={audio.href} aria-label={linkLabel}>
+              <a href={appleLink} aria-label={linkLabel}>
                 Apple Podcasts ↗
               </a>
-              <a href={audio.href} aria-label={`${linkLabel} on Spotify`}>
+              <a href={spotifyLink} aria-label={`${linkLabel} on Spotify`}>
                 Spotify ↗
               </a>
             </div>

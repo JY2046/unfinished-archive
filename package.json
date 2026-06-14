@@ -6,7 +6,8 @@
   "homepage": "https://jy2046.github.io/unfinished-archive/",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "sync:notion": "node scripts/sync-notion-content.mjs",
+    "build": "npm run sync:notion && tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",

@@ -11,6 +11,12 @@ const headings: Record<Language, string> = {
 };
 
 const roamingImages: Record<string, string> = {
+  'roam-kyoto': 'assets/reference-crops/roam-kyoto.png',
+  'roam-osaka': 'assets/reference-crops/roam-osaka.png',
+  'roam-coast': 'assets/reference-crops/roam-coast.png',
+  'roam-lisbon': 'assets/reference-crops/roam-lisbon.png',
+  'roam-bali': 'assets/reference-crops/roam-bali.png',
+  'roam-seoul': 'assets/reference-crops/roam-seoul.png',
   kyoto: 'assets/reference-crops/roam-kyoto.png',
   osaka: 'assets/reference-crops/roam-osaka.png',
   coast: 'assets/reference-crops/roam-coast.png',
@@ -18,6 +24,8 @@ const roamingImages: Record<string, string> = {
   bali: 'assets/reference-crops/roam-bali.png',
   seoul: 'assets/reference-crops/roam-seoul.png',
 };
+
+const fallbackRoamingImage = roamingImages['roam-kyoto'];
 
 export function Roaming({ language }: RoamingProps) {
   return (
@@ -28,7 +36,7 @@ export function Roaming({ language }: RoamingProps) {
       </div>
       {roamingNotes.map((note) => (
         <article key={note.id}>
-          <img src={roamingImages[note.id]} alt="" aria-hidden="true" />
+          <img src={roamingImages[note.imageKey ?? note.id] ?? fallbackRoamingImage} alt="" aria-hidden="true" />
           <div>
             <h3>{note.place[language]}</h3>
             <p>{note.meta}</p>

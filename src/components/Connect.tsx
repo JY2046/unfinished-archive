@@ -32,6 +32,7 @@ const contactItems: Array<{
   caption: Record<Language, string>;
   icon: Icon;
   href?: string;
+  kind?: string;
 }> = [
   {
     id: 'linkedin',
@@ -78,6 +79,16 @@ const contactItems: Array<{
   },
 ];
 
+const iconByKind: Record<string, Icon> = {
+  douyin: TiktokLogo,
+  email: EnvelopeSimple,
+  github: GithubLogo,
+  linkedin: LinkedinLogo,
+  podcast: MicrophoneStage,
+  resume: FileText,
+  xiaohongshu: InstagramLogo,
+};
+
 export function Connect({ language }: ConnectProps) {
   return (
     <footer id="connect" className="connect" aria-labelledby="connect-title">
@@ -87,7 +98,7 @@ export function Connect({ language }: ConnectProps) {
       </div>
       <p className="connect__intro">{copy[language].body}</p>
       <ul>
-        {contactItems.map((item) => {
+        {mergeContactItems().map((item) => {
           const IconComponent = item.icon;
           const content = (
             <>
@@ -108,4 +119,23 @@ export function Connect({ language }: ConnectProps) {
       </ul>
     </footer>
   );
+}
+
+function mergeContactItems() {
+  return contactItems.map((item) => {
+    const link = socialLinks.find((candidate) => candidate.id === item.id);
+
+    if (!link) {
+      return item;
+    }
+
+    return {
+      ...item,
+      label: link.label || item.label,
+      caption: link.caption ?? item.caption,
+      icon: iconByKind[link.kind ?? link.id] ?? item.icon,
+      href: link.href,
+      kind: link.kind,
+    };
+  });
 }

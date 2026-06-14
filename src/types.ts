@@ -20,6 +20,7 @@ export type SelectedFile = {
   meaning: LocalizedText;
   platform: string;
   href: string;
+  imageKey?: string;
 };
 
 export type Signal = {
@@ -35,6 +36,15 @@ export type AudioNote = {
   positioning: LocalizedText;
   recommendedEpisode: LocalizedText;
   href: string;
+  episode?: string;
+  duration?: string;
+  published?: string;
+  coverLabel?: string;
+  waveKey?: string;
+  links?: {
+    apple?: string;
+    spotify?: string;
+  };
 };
 
 export type Capability = {
@@ -48,10 +58,32 @@ export type RoamingNote = {
   place: LocalizedText;
   caption: LocalizedText;
   meta: string;
+  imageKey?: string;
 };
 
 export type SocialLink = {
   id: string;
   label: string;
   href: string;
+  caption?: LocalizedText;
+  kind?: string;
+};
+
+export type BrandContent = {
+  title: string;
+  titleZh: string;
+  tagline: LocalizedText;
+  identity: LocalizedText;
+  intro: LocalizedText;
+};
+
+export type SiteContent = {
+  brand: BrandContent;
+  features: Feature[];
+  selectedFiles: SelectedFile[];
+  signals: Signal[];
+  audioNotes: AudioNote[];
+  capabilities: Capability[];
+  roamingNotes: RoamingNote[];
+  socialLinks: SocialLink[];
 };

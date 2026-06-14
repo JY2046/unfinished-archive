@@ -28,12 +28,19 @@ const linkVerbs: Record<Language, string> = {
 };
 
 const fileImages: Record<string, string> = {
+  'file-public': 'assets/reference-crops/file-public.png',
+  'file-ai': 'assets/reference-crops/file-ai.png',
+  'file-growth': 'assets/reference-crops/file-growth.png',
+  'file-product': 'assets/reference-crops/file-product.png',
+  'file-life': 'assets/reference-crops/file-life.png',
   'short-video': 'assets/reference-crops/file-public.png',
   'ai-news-podcast': 'assets/reference-crops/file-ai.png',
   'growth-podcast': 'assets/reference-crops/file-growth.png',
   'product-note': 'assets/reference-crops/file-product.png',
   'roaming-note': 'assets/reference-crops/file-life.png',
 };
+
+const fallbackFileImage = fileImages['file-public'];
 
 export function SelectedFiles({ language }: SelectedFilesProps) {
   const [activeFilter, setActiveFilter] = useState<Filter>('all');
@@ -67,7 +74,7 @@ export function SelectedFiles({ language }: SelectedFilesProps) {
         return (
           <article key={file.id}>
             <p className="issue-number">{file.number}</p>
-            <img src={fileImages[file.id]} alt="" aria-hidden="true" />
+            <img src={fileImages[file.imageKey ?? file.id] ?? fallbackFileImage} alt="" aria-hidden="true" />
             <p className="meta-label">{file.platform}</p>
             <h3>{title}</h3>
             <p>{file.meaning[language]}</p>
