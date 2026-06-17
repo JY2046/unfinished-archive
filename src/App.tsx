@@ -8,9 +8,11 @@ import { Roaming } from './components/Roaming';
 import { SelectedFiles } from './components/SelectedFiles';
 import { Signals } from './components/Signals';
 import { useLanguage } from './hooks/useLanguage';
+import { useScrollReveal } from './hooks/useScrollReveal';
 
 export default function App() {
   const { language, toggleLanguage } = useLanguage();
+  useScrollReveal();
 
   return (
     <>

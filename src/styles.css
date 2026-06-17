@@ -9,6 +9,7 @@
   --red: #a53b2b;
   --sand: #e7dfd2;
   --max-width: 1240px;
+  --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1);
   color: var(--ink);
   background: var(--paper);
   font-family:
@@ -83,6 +84,7 @@ button:focus-visible {
   gap: 24px;
   padding: 22px 0 18px;
   border-bottom: 1px solid var(--ink);
+  animation: masthead-in 900ms var(--ease-editorial) both;
 }
 
 #root > header > a {
@@ -91,6 +93,15 @@ button:focus-visible {
   line-height: 1;
   letter-spacing: 0;
   color: var(--green);
+  transform-origin: 50% 70%;
+  transition:
+    color 220ms ease,
+    transform 420ms var(--ease-editorial);
+}
+
+#root > header > a:hover {
+  color: var(--red);
+  transform: rotate(-4deg) scale(1.08);
 }
 
 nav {
@@ -104,7 +115,30 @@ nav {
 }
 
 nav a {
+  position: relative;
   padding: 6px 0;
+}
+
+nav a::after,
+.audio-links a::after,
+.connect a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 360ms var(--ease-editorial);
+}
+
+nav a:hover::after,
+.audio-links a:hover::after,
+.connect a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 #root > header button {
@@ -115,6 +149,14 @@ nav a {
   cursor: pointer;
   font-size: 12px;
   letter-spacing: 0.04em;
+  transition:
+    color 220ms ease,
+    transform 360ms var(--ease-editorial);
+}
+
+#root > header button:hover {
+  color: var(--red);
+  transform: translateY(-2px);
 }
 
 #root > header button span:first-child,
@@ -141,6 +183,63 @@ nav a {
   gap: 16px;
   padding: 24px 10px 18px;
   border-bottom: 1px solid var(--hairline);
+}
+
+.reveal-section {
+  opacity: 0;
+  transform: translateY(38px);
+  transition:
+    opacity 900ms var(--ease-editorial),
+    transform 900ms var(--ease-editorial);
+  will-change: opacity, transform;
+}
+
+.reveal-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-section > .section-bar,
+.reveal-section article,
+.reveal-section .filter-bar,
+.reveal-section .connect__intro {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 760ms var(--ease-editorial),
+    transform 760ms var(--ease-editorial);
+}
+
+.reveal-section.is-visible > .section-bar,
+.reveal-section.is-visible .filter-bar,
+.reveal-section.is-visible .connect__intro,
+.reveal-section.is-visible article {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-section.is-visible article:nth-of-type(1) {
+  transition-delay: 90ms;
+}
+
+.reveal-section.is-visible article:nth-of-type(2) {
+  transition-delay: 170ms;
+}
+
+.reveal-section.is-visible article:nth-of-type(3) {
+  transition-delay: 250ms;
+}
+
+.reveal-section.is-visible article:nth-of-type(4) {
+  transition-delay: 330ms;
+}
+
+.reveal-section.is-visible article:nth-of-type(5) {
+  transition-delay: 410ms;
+}
+
+.reveal-section.is-visible article:nth-of-type(6) {
+  transition-delay: 490ms;
 }
 
 .section-bar h2 {
@@ -188,6 +287,7 @@ nav a {
   align-items: start;
   padding: 42px 10px 36px;
   position: relative;
+  perspective: 1200px;
 }
 
 .cover__title {
@@ -204,6 +304,7 @@ nav a {
   letter-spacing: 0;
   line-height: 0.82;
   max-width: 550px;
+  animation: cover-title-in 1100ms var(--ease-editorial) 120ms both;
 }
 
 .cover__alternate {
@@ -214,6 +315,7 @@ nav a {
   font-family: "Songti SC", "Noto Serif SC", Georgia, serif;
   font-size: clamp(44px, 5.2vw, 70px);
   line-height: 0.96;
+  animation: cover-subtitle-in 1000ms var(--ease-editorial) 380ms both;
 }
 
 .cover__tagline {
@@ -222,6 +324,7 @@ nav a {
   font-family: Georgia, serif;
   font-size: 24px;
   line-height: 1.22;
+  animation: cover-copy-in 900ms var(--ease-editorial) 600ms both;
 }
 
 .cover__copy {
@@ -233,6 +336,7 @@ nav a {
   color: var(--soft-ink);
   font-size: 13px;
   line-height: 1.58;
+  animation: cover-copy-in 900ms var(--ease-editorial) 740ms both;
 }
 
 .cover__copy p {
@@ -244,6 +348,7 @@ nav a {
   grid-area: issue;
   padding-top: 18px;
   color: var(--green);
+  animation: issue-in 900ms var(--ease-editorial) 520ms both;
 }
 
 .cover__issue p,
@@ -274,6 +379,50 @@ nav a {
   min-height: 410px;
   margin: 0;
   position: relative;
+  transform-style: preserve-3d;
+  animation: archive-photo-in 1100ms var(--ease-editorial) 420ms both;
+  transition: transform 760ms var(--ease-editorial);
+}
+
+.cover__image::before,
+.cover__image::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cover__image::before {
+  top: -14px;
+  left: 26%;
+  width: 112px;
+  height: 28px;
+  background: rgba(230, 224, 211, 0.88);
+  box-shadow: 0 6px 20px rgba(18, 18, 15, 0.12);
+  transform: rotate(2deg);
+}
+
+.cover__image::after {
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background:
+    linear-gradient(105deg, transparent 0 42%, rgba(255, 255, 255, 0.16) 50%, transparent 58%),
+    linear-gradient(180deg, transparent, rgba(18, 18, 15, 0.16));
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  transform: translateX(-26%);
+  transition:
+    opacity 600ms ease,
+    transform 900ms var(--ease-editorial);
+}
+
+.cover__image:hover {
+  transform: rotateX(2.4deg) rotateY(-4deg) translateY(-8px);
+}
+
+.cover__image:hover::after {
+  opacity: 0.74;
+  transform: translateX(22%);
 }
 
 .cover__image img {
@@ -281,6 +430,14 @@ nav a {
   height: 100%;
   object-fit: cover;
   filter: grayscale(25%) contrast(1.03);
+  transition:
+    filter 680ms ease,
+    transform 900ms var(--ease-editorial);
+}
+
+.cover__image:hover img {
+  filter: grayscale(8%) contrast(1.08);
+  transform: scale(1.035);
 }
 
 .cover__image figcaption {
@@ -315,6 +472,9 @@ nav a {
   text-align: center;
   text-transform: uppercase;
   transform: rotate(-18deg);
+  animation:
+    stamp-in 860ms var(--ease-editorial) 900ms both,
+    stamp-drift 7s ease-in-out 1.8s infinite;
 }
 
 @media (min-width: 1100px) {
@@ -344,6 +504,20 @@ nav a {
   padding: 22px 12px;
   border-right: 1px solid var(--hairline);
   min-width: 0;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 360ms ease,
+    transform 460ms var(--ease-editorial);
+}
+
+.feature-index article:hover,
+.selected-files article:hover,
+.signals article:hover,
+.capabilities article:hover,
+.roaming article:hover {
+  background: rgba(255, 255, 255, 0.34);
+  transform: translateY(-7px);
 }
 
 .feature-index article:last-child {
@@ -377,6 +551,14 @@ nav a {
   min-height: 210px;
   object-fit: cover;
   filter: grayscale(22%) contrast(1.08);
+  transition:
+    filter 520ms ease,
+    transform 700ms var(--ease-editorial);
+}
+
+.feature-index article:hover > img {
+  filter: grayscale(4%) contrast(1.1);
+  transform: scale(1.045) rotate(0.8deg);
 }
 
 .feature-index a:not(.feature-index__text-link),
@@ -386,6 +568,15 @@ nav a {
   height: 24px;
   place-items: center;
   font-size: 24px;
+  transition:
+    color 260ms ease,
+    transform 360ms var(--ease-editorial);
+}
+
+.feature-index article:hover a:not(.feature-index__text-link),
+.selected-files article:hover a {
+  color: var(--red);
+  transform: translateX(7px);
 }
 
 .feature-index__text-link {
@@ -417,6 +608,15 @@ nav a {
   cursor: pointer;
   font-size: 11px;
   text-transform: uppercase;
+  transition:
+    border-color 260ms ease,
+    color 260ms ease,
+    transform 300ms var(--ease-editorial);
+}
+
+.filter-bar button:hover {
+  color: var(--red);
+  transform: translateY(-2px);
 }
 
 .filter-bar button[aria-pressed="true"] {
@@ -431,6 +631,11 @@ nav a {
   gap: 10px;
   padding: 16px 14px 18px;
   border-right: 1px solid var(--hairline);
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 360ms ease,
+    transform 460ms var(--ease-editorial);
 }
 
 .selected-files article:last-child {
@@ -447,6 +652,24 @@ nav a {
   aspect-ratio: 1.58;
   object-fit: cover;
   filter: grayscale(18%) contrast(1.04);
+  transition:
+    filter 520ms ease,
+    transform 700ms var(--ease-editorial);
+}
+
+.selected-files article:hover img {
+  filter: grayscale(2%) contrast(1.1);
+  transform: scale(1.06);
+}
+
+.selected-files article h3,
+.selected-files article p {
+  transition: transform 460ms var(--ease-editorial);
+}
+
+.selected-files article:hover h3,
+.selected-files article:hover p:not(.issue-number) {
+  transform: translateY(-4px);
 }
 
 .selected-files article p:not(.issue-number, .meta-label) {
@@ -469,6 +692,9 @@ nav a {
   min-height: 230px;
   padding: 30px 46px 28px;
   border-right: 1px solid var(--hairline);
+  transition:
+    background 360ms ease,
+    transform 460ms var(--ease-editorial);
 }
 
 .signals article:last-child {
@@ -480,6 +706,15 @@ nav a {
   font-family: Georgia, serif;
   font-size: 36px;
   line-height: 0.8;
+  transform-origin: left top;
+  transition:
+    color 260ms ease,
+    transform 500ms var(--ease-editorial);
+}
+
+.signals article:hover > p:first-child {
+  color: var(--red);
+  transform: rotate(-8deg) scale(1.22);
 }
 
 .signals h3 {
@@ -507,6 +742,14 @@ nav a {
   align-items: center;
   padding: 14px 10px;
   border-bottom: 1px solid var(--hairline);
+  transition:
+    background 360ms ease,
+    transform 460ms var(--ease-editorial);
+}
+
+.audio-notes article:hover {
+  background: rgba(255, 255, 255, 0.34);
+  transform: translateX(8px);
 }
 
 .audio-notes article:last-child {
@@ -524,6 +767,14 @@ nav a {
   color: var(--paper);
   font-size: 15px;
   line-height: 1.03;
+  transition:
+    box-shadow 400ms ease,
+    transform 520ms var(--ease-editorial);
+}
+
+.audio-notes article:hover .audio-cover {
+  box-shadow: 8px 8px 0 rgba(165, 59, 43, 0.18);
+  transform: rotate(-2deg) scale(1.04);
 }
 
 .audio-notes article:nth-of-type(3) .audio-cover {
@@ -543,6 +794,31 @@ nav a {
   background: transparent;
   cursor: pointer;
   font-size: 14px;
+  position: relative;
+  transition:
+    background 260ms ease,
+    color 260ms ease,
+    transform 360ms var(--ease-editorial);
+}
+
+.audio-notes button::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border: 1px solid var(--red);
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.72);
+}
+
+.audio-notes button:hover {
+  background: var(--ink);
+  color: var(--paper);
+  transform: scale(1.08);
+}
+
+.audio-notes button:hover::after {
+  animation: audio-pulse 820ms ease-out;
 }
 
 .audio-main {
@@ -569,6 +845,17 @@ nav a {
   height: 40px;
   margin-top: 8px;
   object-fit: fill;
+  opacity: 0.76;
+  transform-origin: left center;
+  animation: waveform-drift 6s ease-in-out infinite;
+  transition:
+    opacity 320ms ease,
+    transform 520ms var(--ease-editorial);
+}
+
+.audio-notes article:hover .audio-main img {
+  opacity: 1;
+  transform: scaleY(1.24);
 }
 
 .audio-meta {
@@ -586,6 +873,11 @@ nav a {
   font-size: 12px;
 }
 
+.audio-links a {
+  position: relative;
+  padding-bottom: 2px;
+}
+
 .capabilities {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -595,6 +887,9 @@ nav a {
   min-height: 190px;
   padding: 24px 18px;
   border-right: 1px solid var(--hairline);
+  transition:
+    background 360ms ease,
+    transform 460ms var(--ease-editorial);
 }
 
 .capabilities article:last-child {
@@ -624,6 +919,10 @@ nav a {
   gap: 10px;
   padding: 14px 10px 24px;
   border-right: 1px solid var(--hairline);
+  overflow: hidden;
+  transition:
+    background 360ms ease,
+    transform 460ms var(--ease-editorial);
 }
 
 .roaming article:last-child {
@@ -635,6 +934,14 @@ nav a {
   aspect-ratio: 1.58;
   object-fit: cover;
   filter: grayscale(12%) contrast(1.05);
+  transition:
+    filter 520ms ease,
+    transform 760ms var(--ease-editorial);
+}
+
+.roaming article:hover img {
+  filter: grayscale(0%) contrast(1.1);
+  transform: scale(1.055) rotate(-0.8deg);
 }
 
 .roaming article div {
@@ -691,6 +998,18 @@ nav a {
   color: var(--ink);
 }
 
+.connect a {
+  position: relative;
+  transition:
+    color 260ms ease,
+    transform 360ms var(--ease-editorial);
+}
+
+.connect a:hover {
+  color: var(--red);
+  transform: translateY(-4px);
+}
+
 .connect li > span {
   opacity: 0.7;
 }
@@ -719,6 +1038,116 @@ footer::after {
   font-size: 14px;
   font-style: italic;
   text-align: right;
+}
+
+@keyframes masthead-in {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cover-title-in {
+  from {
+    opacity: 0;
+    transform: translateY(42px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cover-subtitle-in {
+  from {
+    opacity: 0;
+    transform: translateX(-34px);
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    clip-path: inset(0);
+  }
+}
+
+@keyframes cover-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes issue-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes archive-photo-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotate(1.8deg) scale(0.965);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: rotate(-42deg) scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-18deg) scale(1);
+  }
+}
+
+@keyframes stamp-drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -5px;
+  }
+}
+
+@keyframes audio-pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.72);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.42);
+  }
+}
+
+@keyframes waveform-drift {
+  0%,
+  100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(8px) scaleY(1.08);
+  }
 }
 
 @media (max-width: 720px) {
@@ -796,6 +1225,26 @@ footer::after {
   .audio-links {
     grid-column: 3;
     justify-content: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+
+  .reveal-section,
+  .reveal-section > .section-bar,
+  .reveal-section article,
+  .reveal-section .filter-bar,
+  .reveal-section .connect__intro {
+    opacity: 1;
+    transform: none;
   }
 }
 
